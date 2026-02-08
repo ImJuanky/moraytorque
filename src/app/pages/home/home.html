@@ -1,29 +1,35 @@
 <section class="hero">
     <video
-  class="video-bg"
-  autoplay
-  loop
-  playsinline
-  preload="auto"
-  [muted]="true"
-  disablepictureinpicture
->
-  <source src="/videos/mt07.mp4" type="video/mp4" />
-</video>
-
+      class="video-bg"
+      autoplay
+      loop
+      playsinline
+      preload="auto"
+      [muted]="true"
+      [defaultMuted]="true"
+      disablepictureinpicture
+    >
+      <source src="/videos/mt07.mp4" type="video/mp4" />
+    </video>
+  
     <div class="hero-content">
-        <h1>Moray Torque</h1>
-        <p>Accesorios y recambios para Yamaha MT-07 + configurador en tiempo real</p>
-        <a class="btn" routerLink="/configurator">Configurar mi MT-07</a>
+      <h1>Moray Motors</h1>
+      <p>Accesorios y recambios para Yamaha MT-07 + configurador en tiempo real</p>
+      <a class="btn" routerLink="/configurator">Configurar mi MT-07</a>
     </div>
-</section>
-
-<section class="about">
-    <h2>Sobre mi</h2>
+  </section>
+  
+  <section class="about">
+    <h2>Sobre mí</h2>
     <p>
-        Soy un estudiante de 2º DAM y este es mi TFG Moray Torque, una tienda enfocada exclusivamente en la Yamaha MT-07, con un configurador visual para ver los cambios al instante
+      Soy un estudiante de 2º DAM y este es mi TFG. Moray Motors es una tienda enfocada exclusivamente
+      en la Yamaha MT-07, con un configurador visual para ver los cambios al instante.
     </p>
-
+  
     <h2>Sobre el proyecto</h2>
-    <p>El objetivo es ofrecer una experiencia diferente a una tienda normal: eliges accesorios y puedees ver cómo queeda en la moto a tiempo real, con una preview en 3D.</p>
-</section>
+    <p>
+      El objetivo es ofrecer una experiencia diferente a una tienda normal: eliges accesorios y puedes
+      ver cómo queda en la moto en tiempo real, con una preview en 3D.
+    </p>
+  </section>
+  

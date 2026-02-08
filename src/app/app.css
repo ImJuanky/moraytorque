@@ -1,0 +1,21 @@
+.nav {
+    display: flex;
+    gap: 16px;
+    padding: 16px;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  
+  .nav a {
+    text-decoration: none;
+    font-weight: 700;
+    color: #111;
+  }
+  
+  .nav a.active {
+    text-decoration: underline;
+  }
+  
+  .container {
+    padding: 16px;
+  }
+  
