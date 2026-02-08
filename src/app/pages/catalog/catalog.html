@@ -1,0 +1,35 @@
+<h1>Catálogo</h1>
+
+<div class="filters">
+  <button (click)="setCategory('all')" [class.active]="selectedCategory === 'all'">
+    Todo
+  </button>
+
+  <button (click)="setCategory('manillar')" [class.active]="selectedCategory === 'manillar'">
+    Manillares
+  </button>
+
+  <button (click)="setCategory('escape')" [class.active]="selectedCategory === 'escape'">
+    Escapes
+  </button>
+
+  <button (click)="setCategory('sticker')" [class.active]="selectedCategory === 'sticker'">
+    Stickers
+  </button>
+</div>
+
+<div class="grid">
+  <article class="card" *ngFor="let p of filtered">
+    <img [src]="p.imageUrl" [alt]="p.name" />
+
+    <h3>{{ p.name }}</h3>
+
+    <p class="price">{{ p.price }} €</p>
+
+    <p class="desc">{{ p.description }}</p>
+
+    <button class="add">
+      Añadir al carrito (pronto)
+    </button>
+  </article>
+</div>
