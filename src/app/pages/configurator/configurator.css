@@ -74,6 +74,7 @@ button.active {
 }
 .price {
   margin: 10px 0;
+  font-weight: 700;
 }
 
 .add-cart {
@@ -81,6 +82,7 @@ button.active {
   color: #fff;
   border: 0;
 }
+
 .stage {
   position: relative;
   width: 100%;
@@ -130,6 +132,16 @@ button.active {
 .base {
   position: relative;
   z-index: 1;
+}
+.price {
+  margin: 10px 0;
+  font-weight: 700;
+}
+
+.add-cart {
+  background: #111;
+  color: #fff;
+  border: 0;
 }
 
 .overlay {

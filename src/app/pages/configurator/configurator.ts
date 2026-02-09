@@ -20,6 +20,7 @@ const STORAGE_KEY = 'moray_config_v1';
   templateUrl: './configurator.html',
   styleUrl: './configurator.css'
 })
+
 export class Configurator {
   state: ConfigState = this.load();
 
@@ -73,21 +74,23 @@ get configName(): string {
   const parts: string[] = [`Color: ${this.state.color}`];
   if (this.state.stickers) parts.push('Stickers');
   if (this.state.sportExhaust) parts.push('Escape sport');
-  return `Config MT-07 (${parts.join(' + ')})`;
+  return `MT-07 Config (${parts.join(' + ')})`;
 }
 addConfigToCart() {
   const product: Product = {
-    id: 9000, // fijo por ahora
+    id: Date.now(),
     name: this.configName,
-    category: 'sticker', // da igual por ahora (luego lo mejoramos)
+    category: 'config',
     price: this.configPrice,
     imageUrl: this.imageUrl,
-    description: 'Configuración personalizada de la MT-07'
+    description: JSON.stringify(this.state)
   };
 
   this.cartService.add(product);
   alert('Configuración añadida al carrito ✅');
 }
+
+
 
 constructor(private cartService: CartService) {}
 

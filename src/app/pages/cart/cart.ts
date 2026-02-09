@@ -16,4 +16,10 @@ export class Cart {
   goToCheckout() {
     this.router.navigateByUrl('/checkout');
   }
+
+  editConfig(configJson: string) {
+    // Guardamos la configuración para que el configurador la cargue
+    localStorage.setItem('moray_config_v1', configJson);
+    this.router.navigateByUrl('/configurator');
+  }
 }

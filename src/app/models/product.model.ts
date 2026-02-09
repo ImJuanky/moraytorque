@@ -1,4 +1,4 @@
-export type Category = 'manillar' | 'escape' | 'sticker';
+export type Category = 'manillar' | 'escape' | 'sticker' | 'config';
 
 
     export interface Product {

@@ -100,3 +100,20 @@
   cursor: pointer;
   border: 1px solid #ddd;
 }
+
+.edit {
+  margin-top: 8px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+
+.actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
