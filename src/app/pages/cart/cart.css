@@ -1,0 +1,76 @@
+.item {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    border: 1px solid #ddd;
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+  }
+  
+  .left h3 {
+    margin: 0;
+  }
+  
+  .muted {
+    margin: 6px 0 0;
+    color: #555;
+  }
+  
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .qty {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 6px 10px;
+  }
+  
+  .qty button {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 0;
+    background: #111;
+    color: #fff;
+    font-weight: 800;
+    cursor: pointer;
+  }
+  
+  .line-total {
+    font-weight: 900;
+    min-width: 90px;
+    text-align: right;
+  }
+  
+  .remove {
+    border: 1px solid #ddd;
+    background: #fff;
+    padding: 8px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  .summary {
+    margin-top: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .clear {
+    border: 0;
+    background: #111;
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-weight: 800;
+    cursor: pointer;
+  }
+  
