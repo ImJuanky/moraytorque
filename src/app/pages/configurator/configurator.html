@@ -1,1 +1,62 @@
-<p>configurator works!</p>
+<h1>Configurador MT-07</h1>
+
+<div class="layout">
+  <section class="preview">
+  <div class="stage">
+    
+    <img class="layer base" [src]="imageUrl" alt="Yamaha MT-07" />
+
+    
+   <img
+  *ngIf="state.sportExhaust"
+  class="layer overlay exhaust"
+  src="/images/mt07/overlays/mt07-escape.png"
+  alt="Escape sport"
+/>
+<img
+  *ngIf="state.stickers"
+  class="layer overlay sticker"
+  src="/images/mt07/overlays/mt07-pegatinas.png"
+  alt="Pegatina moto"
+/>
+
+
+  </div>
+
+  <div class="badges">
+    <span class="badge" *ngIf="state.stickers">Stickers</span>
+    <span class="badge" *ngIf="state.sportExhaust">Escape sport</span>
+  </div>
+</section>
+
+
+  <section class="panel">
+    <h2>Color</h2>
+    <div class="row">
+      <button (click)="setColor('black')" [class.active]="state.color === 'black'">Negro</button>
+      <button (click)="setColor('blue')" [class.active]="state.color === 'blue'">Azul</button>
+      <button (click)="setColor('red')" [class.active]="state.color === 'red'">Rojo</button>
+    </div>
+
+    <h2>Accesorios (simulación)</h2>
+    <div class="row">
+      <button (click)="toggleStickers()" [class.active]="state.stickers">
+        Stickers: {{ state.stickers ? 'ON' : 'OFF' }}
+      </button>
+
+      <button (click)="toggleSportExhaust()" [class.active]="state.sportExhaust">
+        Escape sport: {{ state.sportExhaust ? 'ON' : 'OFF' }}
+      </button>
+    </div>
+
+    <button class="reset" (click)="reset()">Reset</button>
+    <p class="price">
+  Precio configuración: <strong>{{ configPrice | number:'1.2-2' }} €</strong>
+</p>
+
+<button class="add-cart" (click)="addConfigToCart()">
+  Añadir configuración al carrito
+</button>
+
+  </section>
+</div>

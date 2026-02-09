@@ -1,0 +1,141 @@
+.layout {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.preview {
+  border: 1px solid #eee;
+  border-radius: 14px;
+  padding: 12px;
+  position: relative;
+  min-height: 360px;
+  display: grid;
+  place-items: center;
+}
+
+.bike {
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+  display: block;
+}
+
+.badges {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  background: #111;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 12px;
+}
+
+.panel {
+  border: 1px solid #eee;
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 10px 0 18px;
+}
+
+button {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+button.active {
+  border-color: #111;
+  text-decoration: underline;
+}
+
+.reset {
+  background: #111;
+  color: #fff;
+  border: 0;
+}
+.price {
+  margin: 10px 0;
+}
+
+.add-cart {
+  background: #111;
+  color: #fff;
+  border: 0;
+}
+.stage {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+}
+
+.layer {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* si necesitas ajustar el escape, aquí lo haces */
+.exhaust {
+  transform: translate(0, 0) scale(1);
+}
+
+.base {
+  position: relative;
+  z-index: 1;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+.stage {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+}
+
+.layer {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.base {
+  position: relative;
+  z-index: 1;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+

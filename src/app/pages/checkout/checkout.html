@@ -1,0 +1,32 @@
+<h1>Checkout</h1>
+
+<div *ngIf="!success">
+  <p class="total">
+    Total a pagar: <strong>{{ cartService.getTotal() | number:'1.2-2' }} €</strong>
+  </p>
+
+  <div class="form">
+    <label>
+      Nombre completo
+      <input [(ngModel)]="name" placeholder="Tu nombre" />
+    </label>
+
+    <label>
+      Dirección
+      <input [(ngModel)]="address" placeholder="Tu dirección" />
+    </label>
+
+    <button (click)="confirmOrder()">Confirmar pedido</button>
+  </div>
+
+  <p class="muted">
+    (Simulación de compra: no hay pago real)
+  </p>
+</div>
+
+<div *ngIf="success" class="success">
+  <h2>Pedido confirmado ✅</h2>
+  <p>Gracias por tu compra. Hemos guardado tu pedido.</p>
+
+  <a routerLink="/catalog">Volver al catálogo</a>
+</div>

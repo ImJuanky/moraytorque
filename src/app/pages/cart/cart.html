@@ -12,6 +12,15 @@
   <button (click)="cartService.remove(item.product.id)">Eliminar</button>
 </div>
 
-<h2>Total: {{ cartService.getTotal() }} €</h2>
+<div *ngIf="cartService.getItems().length > 0" class="summary">
+  <div class="summary-left">
+    <h2>Total: {{ cartService.getTotal() | number:'1.2-2' }} €</h2>
+  </div>
 
-<button (click)="cartService.clear()">Vaciar carrito</button>
+  <div class="summary-right">
+    <button class="checkout-btn" (click)="goToCheckout()">Finalizar compra</button>
+    <button class="clear" (click)="cartService.clear()">Vaciar carrito</button>
+  </div>
+</div>
+
+
