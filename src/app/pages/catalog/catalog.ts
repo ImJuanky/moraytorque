@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsService } from '../../services/products.service';
+import { CartService } from '../../services/cart.service';
 import { Product, Category } from '../../models/product.model';
 
 @Component({
@@ -15,7 +16,10 @@ export class Catalog {
   filtered: Product[] = [];
   selectedCategory: Category | 'all' = 'all';
 
-  constructor(private productsService: ProductsService) {
+  constructor(
+    private productsService: ProductsService,
+    private cartService: CartService
+  ) {
     this.products = this.productsService.getAll();
     this.filtered = this.products;
   }
@@ -26,5 +30,10 @@ export class Catalog {
       cat === 'all'
         ? this.products
         : this.products.filter(p => p.category === cat);
+  }
+
+  addToCart(product: Product) {
+    this.cartService.add(product);
+    alert(`Añadido al carrito: ${product.name}`);
   }
 }
