@@ -4,6 +4,8 @@ import { HttpClientModule } from '@angular/common/http'; // <-- AÑADIR ESTA IMP
 import { ProductsService } from '../../services/products.service';
 import { CartService } from '../../services/cart.service';
 import { Product, Category } from '../../models/product.model';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-catalog',

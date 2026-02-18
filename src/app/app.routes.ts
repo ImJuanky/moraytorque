@@ -6,7 +6,7 @@ import { Configurator } from './pages/configurator/configurator';
 import { Cart } from './pages/cart/cart';
 import { Checkout } from './pages/checkout/checkout';
 import { Orders } from './pages/orders/orders';
-import { Login } from './pages/login/login';
+import { LoginComponent } from './pages/login/login';
 import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
@@ -16,6 +16,6 @@ export const routes: Routes = [
   { path: 'cart', component: Cart },
   { path: 'checkout', component: Checkout, canActivate: [authGuard] }, // Protegida
   { path: 'orders', component: Orders, canActivate: [authGuard] }, // Protegida
-  { path: 'login', component: Login },
+  { path: 'login', component: LoginComponent },
   { path: '**', redirectTo: '' }
 ];

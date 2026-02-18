@@ -8,4 +8,14 @@ import { RouterLink } from '@angular/router';
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
-export class Home {}
+export class Home {
+  scrollToAbout(): void {
+    const aboutSection = document.querySelector('.about');
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  }
+}

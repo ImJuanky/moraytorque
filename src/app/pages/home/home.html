@@ -1,4 +1,6 @@
 <section class="hero">
+  <!-- Overlay de video con efecto parallax suave -->
+  <div class="video-wrapper">
     <video
       class="video-bg"
       autoplay
@@ -6,30 +8,118 @@
       playsinline
       preload="auto"
       [muted]="true"
-      [defaultMuted]="true"
       disablepictureinpicture
     >
       <source src="/videos/mt07.mp4" type="video/mp4" />
     </video>
+  </div>
+
+  <div class="hero-overlay"></div>
   
-    <div class="hero-content">
-      <h1>Moray's Torque</h1>
-      <p>Accesorios y recambios para Yamaha MT-07 + configurador en tiempo real</p>
-      <a class="btn" routerLink="/configurator">Configurar mi MT-07</a>
+  <div class="hero-content">
+    <div class="hero-badge">🏍️ 2º DAM · TFG 2024</div>
+    <h1 class="hero-title">
+      <span class="title-gradient">Moray's Torque</span>
+    </h1>
+    <p class="hero-subtitle">
+      Accesorios y recambios para Yamaha MT-07<br>
+      <span class="highlight">+ configurador 3D en tiempo real</span>
+    </p>
+    
+    <div class="hero-cta">
+      <!-- BOTÓN PRINCIPAL - CONFIGURADOR -->
+      <a class="btn btn-primary" routerLink="/configurator">
+        <span class="btn-text">Configurar mi MT-07</span>
+        <span class="btn-icon">→</span>
+      </a>
+      
+      <!-- BOTÓN SECUNDARIO - CATÁLOGO -->
+      <a class="btn btn-outline" routerLink="/catalog">
+        <span class="btn-text">Ver catálogo</span>
+      </a>
     </div>
-  </section>
-  
-  <section class="about">
-    <h2>Sobre mí</h2>
-    <p>
-      Soy un estudiante de 2º DAM y este es mi TFG. Moray Motors es una tienda enfocada exclusivamente
-      en la Yamaha MT-07, con un configurador visual para ver los cambios al instante.
-    </p>
-  
-    <h2>Sobre el proyecto</h2>
-    <p>
-      El objetivo es ofrecer una experiencia diferente a una tienda normal: eliges accesorios y puedes
-      ver cómo queda en la moto en tiempo real, con una preview en 3D.
-    </p>
-  </section>
-  
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-number">50+</span>
+        <span class="stat-label">Accesorios</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">24/7</span>
+        <span class="stat-label">Configurador</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">3D</span>
+        <span class="stat-label">Tiempo real</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator con evento click -->
+  <div class="scroll-indicator" (click)="scrollToAbout()">
+    <span class="scroll-text">Descubre más</span>
+    <div class="scroll-arrow">↓</div>
+  </div>
+</section>
+
+<section class="about">
+  <div class="about-container">
+    <div class="about-header">
+      <span class="section-badge">Sobre el proyecto</span>
+      <h2 class="section-title">Mi TFG en Desarrollo</h2>
+      <div class="title-decoration"></div>
+    </div>
+
+    <div class="about-grid">
+      <!-- Tarjeta Sobre mí -->
+      <div class="about-card card-personal">
+        <div class="card-icon">👨‍💻</div>
+        <h3>Sobre mí</h3>
+        <p>
+          Estudiante de 2º DAM con pasión por las motos y el desarrollo web. 
+          Este proyecto combina mis dos grandes intereses.
+        </p>
+        <div class="card-tags">
+          <span class="tag">Angular</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">3D</span>
+        </div>
+      </div>
+
+      <!-- Tarjeta Sobre el proyecto -->
+      <div class="about-card card-project">
+        <div class="card-icon">🎯</div>
+        <h3>El Proyecto</h3>
+        <p>
+          Moray Motors va más allá de una tienda tradicional: 
+          configura tu MT-07 visualmente con preview 3D en tiempo real.
+        </p>
+        <ul class="project-features">
+          <li>✓ Configurador interactivo</li>
+          <li>✓ Vista previa 3D</li>
+          <li>✓ Catálogo especializado</li>
+        </ul>
+      </div>
+
+      <!-- Tarjeta Tecnologías -->
+      <div class="about-card card-tech">
+        <div class="card-icon">⚡</div>
+        <h3>Tecnologías</h3>
+        <div class="tech-stack">
+          <div class="tech-item">
+            <span class="tech-name">Angular 18</span>
+            <div class="tech-bar" style="width: 90%"></div>
+          </div>
+          <div class="tech-item">
+            <span class="tech-name">TypeScript</span>
+            <div class="tech-bar" style="width: 85%"></div>
+          </div>
+          <div class="tech-item">
+            <span class="tech-name">Three.js</span>
+            <div class="tech-bar" style="width: 75%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

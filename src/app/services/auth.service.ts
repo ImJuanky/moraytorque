@@ -1,69 +1,105 @@
 // src/app/services/auth.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, map, BehaviorSubject } from 'rxjs';
-import { User, LoginCredentials, AuthResponse } from '../models/user.model';
 import { Router } from '@angular/router';
+import { Observable, of, BehaviorSubject } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3003/users';
-  private currentUserSubject = new BehaviorSubject<User | null>(null);
+  private isLoggedIn = false;
+  private redirectUrl: string | null = null;
+  
+  // BehaviorSubject para el usuario actual
+  private currentUserSubject = new BehaviorSubject<any>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor(
-    private http: HttpClient,
-    private router: Router
-  ) {
-    const storedUser = localStorage.getItem('currentUser');
-    if (storedUser) {
-      try {
-        const user = JSON.parse(storedUser) as User;
-        this.currentUserSubject.next(user);
-      } catch (e) {
-        console.error('Error parsing user', e);
-        localStorage.removeItem('currentUser');
-      }
+  constructor(private router: Router) {
+    this.checkToken();
+  }
+
+  // Verificar token al iniciar
+  private checkToken(): void {
+    const token = localStorage.getItem('token');
+    this.isLoggedIn = !!token;
+    
+    if (this.isLoggedIn) {
+      const user = this.getCurrentUser();
+      this.currentUserSubject.next(user);
     }
   }
 
-  login(credentials: LoginCredentials): Observable<AuthResponse> {
-    return this.http.get<User[]>(this.apiUrl).pipe(
-      map(users => {
-        const user = users.find(u => 
-          u.email === credentials.email && u.password === credentials.password
-        );
-        
-        if (user) {
-          // No guardar la contraseña en localStorage
-          const { password, ...safeUser } = user;
-          localStorage.setItem('currentUser', JSON.stringify(safeUser));
-          this.currentUserSubject.next(safeUser as User);
-          return { success: true, user: safeUser as User };
-        } else {
-          return { success: false, message: 'Email o contraseña incorrectos' };
-        }
-      })
-    );
+  // Método para verificar autenticación
+  isAuthenticated(): boolean {
+    return this.isLoggedIn || !!localStorage.getItem('token');
   }
 
+  // Método de login
+  login(credentials: { email: string; password: string }): Observable<any> {
+    // Simular validación
+    const isValid = (credentials.email === 'admin@moray.com' || credentials.email === 'user@moray.com') 
+                    && credentials.password === '1234';
+    
+    if (isValid) {
+      return of({
+        success: true,
+        token: 'fake-jwt-token-' + Date.now(),
+        user: {
+          email: credentials.email,
+          name: credentials.email === 'admin@moray.com' ? 'Administrador' : 'Usuario',
+          role: credentials.email === 'admin@moray.com' ? 'admin' : 'user'
+        }
+      }).pipe(delay(1000));
+    } else {
+      return of({
+        success: false,
+        message: 'Credenciales inválidas'
+      }).pipe(delay(1000));
+    }
+  }
+
+  // ¡NUEVO! Procesar login exitoso
+  handleLoginSuccess(response: any): void {
+    // Guardar token
+    localStorage.setItem('token', response.token);
+    localStorage.setItem('user', JSON.stringify(response.user));
+    this.isLoggedIn = true;
+    
+    // Emitir el nuevo usuario
+    this.currentUserSubject.next(response.user);
+
+    // Redirigir a la URL guardada o al catálogo
+    const redirect = this.redirectUrl || '/catalog';
+    this.redirectUrl = null;
+    localStorage.removeItem('redirectUrl');
+    this.router.navigateByUrl(redirect);
+  }
+
+  // Cerrar sesión
   logout(): void {
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    localStorage.removeItem('redirectUrl');
+    this.isLoggedIn = false;
     this.currentUserSubject.next(null);
     this.router.navigate(['/login']);
   }
 
-  get currentUser(): User | null {
-    return this.currentUserSubject.value;
+  // Guardar URL para redirección
+  setRedirectUrl(url: string): void {
+    this.redirectUrl = url;
+    localStorage.setItem('redirectUrl', url);
   }
 
-  isAuthenticated(): boolean {
-    return this.currentUser !== null;
+  // Obtener usuario actual
+  getCurrentUser(): any {
+    const userStr = localStorage.getItem('user');
+    return userStr ? JSON.parse(userStr) : null;
   }
 
-  isAdmin(): boolean {
-    return this.currentUser?.role === 'admin';
+  // Obtener token
+  getToken(): string | null {
+    return localStorage.getItem('token');
   }
 }

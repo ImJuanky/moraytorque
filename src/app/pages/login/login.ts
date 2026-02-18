@@ -3,28 +3,23 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
-import { LoginCredentials, AuthResponse } from '../../models/user.model';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    HttpClientModule
-  ],
+  imports: [CommonModule, FormsModule],
   templateUrl: './login.html',
-  styleUrl: './login.css',
+  styleUrls: ['./login.css']
 })
-export class Login {
-  credentials: LoginCredentials = {
+export class LoginComponent {  // <-- Asegúrate que se llame LoginComponent
+  credentials = {
     email: '',
     password: ''
   };
-  errorMessage = '';
+  
   loading = false;
+  errorMessage = '';
 
   constructor(
     private authService: AuthService,
@@ -33,7 +28,7 @@ export class Login {
 
   onSubmit(): void {
     if (!this.credentials.email || !this.credentials.password) {
-      this.errorMessage = 'Por favor, completa todos los campos';
+      this.errorMessage = 'Por favor completa todos los campos';
       return;
     }
 
@@ -41,17 +36,17 @@ export class Login {
     this.errorMessage = '';
 
     this.authService.login(this.credentials).subscribe({
-      next: (response: AuthResponse) => {
+      next: (response) => {
         if (response.success) {
-          this.router.navigate(['/']);
+          this.authService.handleLoginSuccess(response);
         } else {
-          this.errorMessage = response.message || 'Error al iniciar sesión';
+          this.errorMessage = 'Error al iniciar sesión';
           this.loading = false;
         }
       },
-      error: (error: Error) => {
-        console.error('Error en login:', error);
-        this.errorMessage = 'Error de conexión. Intenta de nuevo.';
+      error: (error) => {
+        console.error('Login error:', error);
+        this.errorMessage = 'Credenciales inválidas';
         this.loading = false;
       }
     });

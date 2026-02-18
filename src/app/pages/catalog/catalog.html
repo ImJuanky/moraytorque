@@ -1,16 +1,42 @@
-<!-- Botones de categorías -->
-<button (click)="setCategory('all')" [class.active]="selectedCategory === 'all'">Todo</button>
-<button (click)="setCategory('manillar')" [class.active]="selectedCategory === 'manillar'">Manillar</button>
-<button (click)="setCategory('escape')" [class.active]="selectedCategory === 'escape'">Escape</button>
-<button (click)="setCategory('sticker')" [class.active]="selectedCategory === 'sticker'">Stickers</button>
+<div class="catalog-container">
+  <div class="catalog-header">
+    <h1 class="catalog-title">Catálogo de Accesorios</h1>
+  </div>
 
-<!-- Mostrar productos filtrados -->
-<div *ngFor="let p of filtered">
-  <article class="card">
-    <img [src]="p.imageUrl" alt="{{ p.name }}">
-    <h3>{{ p.name }}</h3>
-    <p>{{ p.description }}</p>
-    <p>{{ p.price | currency }}</p>
-    <button class="add" (click)="addToCart(p)">Añadir al carrito</button>
-  </article>
+  <!-- Filtros de categorías -->
+  <div class="filters">
+    <button (click)="setCategory('all')" [class.active]="selectedCategory === 'all'">
+      <span class="filter-icon">🔍</span> Todo
+    </button>
+    <button (click)="setCategory('manillar')" [class.active]="selectedCategory === 'manillar'">
+      <span class="filter-icon">🏍️</span> Manillar
+    </button>
+    <button (click)="setCategory('escape')" [class.active]="selectedCategory === 'escape'">
+      <span class="filter-icon">⚡</span> Escape
+    </button>
+    <button (click)="setCategory('sticker')" [class.active]="selectedCategory === 'sticker'">
+      <span class="filter-icon">✨</span> Stickers
+    </button>
+  </div>
+
+  <!-- Grid de productos -->
+  <div class="grid" *ngIf="filtered.length > 0; else noProducts">
+    <article class="card" *ngFor="let p of filtered">
+      <span class="category-badge">{{ p.category }}</span>
+      <img [src]="p.imageUrl" [alt]="p.name" loading="lazy">
+      <h3>{{ p.name }}</h3>
+      <p class="desc">{{ p.description }}</p>
+      <p class="price">{{ p.price | number:'1.2-2' }}</p>
+      <button class="add" (click)="addToCart(p)">Añadir</button>
+    </article>
+  </div>
+
+  <!-- Template para cuando no hay productos -->
+  <ng-template #noProducts>
+    <div class="no-products">
+      <div class="icon">🔍</div>
+      <p>No hay productos en esta categoría</p>
+      <button class="filters button" (click)="setCategory('all')">Ver todos los productos</button>
+    </div>
+  </ng-template>
 </div>

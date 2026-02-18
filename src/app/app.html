@@ -1,14 +1,23 @@
+<!-- src/app/app.html -->
 <nav class="nav">
   <a routerLink="/" routerLinkActive="active">Home</a>
   <a routerLink="/catalog" routerLinkActive="active">Catálogo</a>
   <a routerLink="/configurator" routerLinkActive="active">Configurador</a>
   <a routerLink="/cart" routerLinkActive="active">
-  Carrito ({{ cartService.getCount() }})
-</a>
-<a routerLink="/orders" routerLinkActive="active">Mis pedidos.</a>
-
+    Carrito ({{ cartService.getCount() }})
+  </a>
+  <a routerLink="/orders" routerLinkActive="active">Mis pedidos</a>
+  
+  <div class="auth-section">
+    <ng-container *ngIf="authService.currentUser$ | async as user; else notLoggedIn">
+      <span class="user-info">Hola, {{ user.email }}</span>
+      <a href="#" (click)="logout($event)" class="logout">Cerrar sesión</a>
+    </ng-container>
+    <ng-template #notLoggedIn>
+      <a routerLink="/login" routerLinkActive="active" class="login-btn">Iniciar sesión</a>
+    </ng-template>
+  </div>
 </nav>
 
-<main class="container">
-  <router-outlet></router-outlet>
-</main>
+<!-- El hero DEBE IR FUERA del container -->
+<router-outlet></router-outlet>
