@@ -1,10 +1,10 @@
 <h1>Mis pedidos</h1>
 
-<div *ngIf="ordersService.getAll().length === 0">
+<div *ngIf="orders.length === 0">  <!-- Cambiado -->
   <p>No tienes pedidos todavía.</p>
 </div>
 
-<div *ngFor="let order of ordersService.getAll()" class="order">
+<div *ngFor="let order of orders" class="order">  <!-- Cambiado -->
   <h3>Pedido {{ order.id }}</h3>
   <p>Fecha: {{ order.createdAt | date:'short' }}</p>
   <p>Total: {{ order.total | number:'1.2-2' }} €</p>

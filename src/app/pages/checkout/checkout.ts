@@ -1,3 +1,4 @@
+// src/app/pages/checkout/checkout.ts (está bien, no necesita cambios)
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -23,7 +24,6 @@ export class Checkout {
     private ordersService: OrdersService,
     private router: Router
   ) {
-    // Si el carrito está vacío, volvemos al carrito
     if (this.cartService.getItems().length === 0) {
       this.router.navigateByUrl('/cart');
     }
@@ -40,8 +40,8 @@ export class Checkout {
       createdAt: new Date().toISOString(),
       name: this.name.trim(),
       address: this.address.trim(),
-      items: this.cartService.getItems(),
-      total: this.cartService.getTotal()
+      items: this.cartService.getItems(), // Ahora devuelve CartItem[]
+      total: this.cartService.getTotal()   // Este método lo añadimos arriba
     };
 
     this.ordersService.create(order);

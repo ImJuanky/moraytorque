@@ -1,18 +1,16 @@
-<h1>Catálogo</h1>
+<!-- Botones de categorías -->
+<button (click)="setCategory('all')" [class.active]="selectedCategory === 'all'">Todo</button>
+<button (click)="setCategory('manillar')" [class.active]="selectedCategory === 'manillar'">Manillar</button>
+<button (click)="setCategory('escape')" [class.active]="selectedCategory === 'escape'">Escape</button>
+<button (click)="setCategory('sticker')" [class.active]="selectedCategory === 'sticker'">Stickers</button>
 
-<div class="filters">
-  <button (click)="setCategory('all')" [class.active]="selectedCategory === 'all'">Todo</button>
-  <button (click)="setCategory('manillar')" [class.active]="selectedCategory === 'manillar'">Manillares</button>
-  <button (click)="setCategory('escape')" [class.active]="selectedCategory === 'escape'">Escapes</button>
-  <button (click)="setCategory('sticker')" [class.active]="selectedCategory === 'sticker'">Stickers</button>
-</div>
-
-<div class="grid">
-  <article class="card" *ngFor="let p of filtered">
-    <img [src]="p.imageUrl" [alt]="p.name" />
+<!-- Mostrar productos filtrados -->
+<div *ngFor="let p of filtered">
+  <article class="card">
+    <img [src]="p.imageUrl" alt="{{ p.name }}">
     <h3>{{ p.name }}</h3>
-    <p class="price">{{ p.price }} €</p>
-    <p class="desc">{{ p.description }}</p>
+    <p>{{ p.description }}</p>
+    <p>{{ p.price | currency }}</p>
     <button class="add" (click)="addToCart(p)">Añadir al carrito</button>
   </article>
 </div>

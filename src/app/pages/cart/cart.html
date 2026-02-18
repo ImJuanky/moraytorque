@@ -1,54 +1,20 @@
-<h1>Carrito</h1>
+<!-- src/app/pages/cart/cart.html -->
+<div *ngFor="let item of cartService.getItems()">
+  <article class="card">
+    <img [src]="item.product.imageUrl" alt="{{ item.product.name }}">
+    <h3>{{ item.product.name }}</h3>
+    <p>{{ item.product.description }}</p>
+    <p>Cantidad: {{ item.quantity }}</p>  <!-- Mostrar cantidad -->
+    <p>Precio: {{ item.product.price | currency }}</p>
+    <p>Subtotal: {{ item.product.price * item.quantity | currency }}</p>
+  </article>
+</div>
 
 <div *ngIf="cartService.getItems().length === 0">
-  <p>El carrito está vacío.</p>
+  <p>El carrito está vacío</p>
 </div>
 
-<div *ngFor="let item of cartService.getItems()" class="item">
-  <div class="left">
-    <h3>{{ item.product.name }}</h3>
-
-    <p class="muted">
-      {{ item.product.price | number:'1.2-2' }} € / unidad
-    </p>
-
-    <!-- Mostrar botón si es configuración -->
-    <button
-      *ngIf="item.product.category === 'config' || item.product.name.includes('Config')"
-      class="edit"
-      (click)="editConfig(item.product.description)"
-    >
-      Editar configuración
-    </button>
-  </div>
-
-  <div class="right">
-    <div class="qty">
-      <button (click)="cartService.decrease(item.product.id)">-</button>
-      <span>{{ item.quantity }}</span>
-      <button (click)="cartService.add(item.product)">+</button>
-    </div>
-
-    <p class="line-total">
-      {{ (item.product.price * item.quantity) | number:'1.2-2' }} €
-    </p>
-
-    <button class="remove" (click)="cartService.remove(item.product.id)">
-      Eliminar
-    </button>
-  </div>
-</div>
-
-<div *ngIf="cartService.getItems().length > 0" class="summary">
-  <h2>Total: {{ cartService.getTotal() | number:'1.2-2' }} €</h2>
-
-  <div class="actions">
-    <button class="checkout-btn" (click)="goToCheckout()">
-      Finalizar compra
-    </button>
-
-    <button class="clear" (click)="cartService.clear()">
-      Vaciar carrito
-    </button>
-  </div>
+<div *ngIf="cartService.getItems().length > 0">
+  <p><strong>Total: {{ cartService.getTotal() | currency }}</strong></p>
+  <button routerLink="/checkout">Proceder al pago</button>
 </div>
