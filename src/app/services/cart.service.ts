@@ -1,8 +1,8 @@
-// src/app/services/cart.service.ts
+
 import { Injectable } from '@angular/core';
 import { Product } from '../models/product.model';
 
-export interface CartItem {  // <-- TIENE QUE ESTAR EXPORTADA
+export interface CartItem {  
   product: Product;
   quantity: number;
 }

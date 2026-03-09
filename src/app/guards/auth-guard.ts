@@ -1,19 +1,19 @@
-// src/app/guards/auth-guard.ts
+
 import { inject } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
-export const authGuard: CanActivateFn = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot
-) => {
+export const authGuard = () => {
   const authService = inject(AuthService);
-  const router: Router = inject(Router);  // <-- Añade el tipo explícitamente
+  const router = inject(Router);
 
   if (authService.isAuthenticated()) {
     return true;
   }
 
-  router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
-  return false;
+ 
+  authService.setRedirectUrl(router.url);
+  
+
+  return router.parseUrl('/login');
 };

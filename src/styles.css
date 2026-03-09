@@ -1,51 +1,237 @@
+/* ============================================================
+   MORAY'S TORQUE — src/styles.css
+   Importa automáticamente todas las fuentes y estilos globales.
+   No necesitas tocar ningún otro archivo.
+   ============================================================ */
 
+/* === 1. GOOGLE FONTS === */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500;600&display=swap');
+
+/* ============================================================
+   2. DESIGN TOKENS (variables globales del nuevo tema)
+   ============================================================ */
 :root {
-    --primary-color: #ff3e00;
-    --secondary-color: #1e1e1e;
-    --bg-dark: #0a0a0a;
-    --bg-card: #ffffff;
-    --text-primary: #333333;
-    --text-secondary: #666666;
-    --border-radius: 16px;
-    --shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-    --transition: all 0.3s ease;
-  }
-  
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
-    color: var(--text-primary);
-  }
-  
-  .container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  /* Scrollbar personalizada */
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-  
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
-    border-radius: 10px;
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    background: #ff6b3d;
-  }
+  /* === COLORES === */
+  --black:        #080808;
+  --black-2:      #0d0d0d;
+  --black-3:      #111111;
+  --black-4:      #161616;
+  --surface-1:    #1a1a1a;
+  --surface-2:    #202020;
+  --surface-3:    #262626;
+  --border:       rgba(255, 255, 255, 0.06);
+  --border-glow:  rgba(255, 140, 0, 0.3);
+
+  /* Accent — Naranja Molten */
+  --accent:       #FF6B00;
+  --accent-2:     #FF8C00;
+  --accent-3:     #FFA500;
+  --accent-glow:  rgba(255, 107, 0, 0.4);
+  --accent-glow2: rgba(255, 107, 0, 0.15);
+
+  /* Texto */
+  --text-primary:   #F5F0E8;
+  --text-secondary: #9A9590;
+  --text-muted:     #555550;
+
+  /* Estado */
+  --success: #39D353;
+  --error:   #FF4444;
+
+  /* === TIPOGRAFÍA === */
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-heading: 'Barlow Condensed', sans-serif;
+  --font-body:    'Barlow', sans-serif;
+
+  /* === BORDES === */
+  --radius-sm:  8px;
+  --radius-md:  16px;
+  --radius-lg:  24px;
+  --radius-xl:  40px;
+
+  /* === EFECTOS === */
+  --glass-bg:     rgba(255, 255, 255, 0.03);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.07);
+  --shadow-card:  0 20px 60px rgba(0, 0, 0, 0.6);
+  --shadow-glow:  0 0 40px var(--accent-glow);
+  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  /* === TRANSICIONES === */
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-sharp:  cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* === COMPATIBILIDAD con variables antiguas del proyecto === */
+  --primary-color:    var(--accent);
+  --secondary-color:  var(--surface-1);
+  --bg-dark:          var(--black);
+  --bg-card:          var(--surface-1);
+  --border-radius:    var(--radius-md);
+  --shadow:           var(--shadow-card);
+  --transition:       all 0.3s var(--ease-smooth);
+}
+
+/* ============================================================
+   3. RESET & BASE
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  background: var(--black);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   4. SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--black);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-2);
+}
+
+/* ============================================================
+   5. SELECCIÓN DE TEXTO
+   ============================================================ */
+::selection {
+  background: var(--accent);
+  color: var(--black);
+}
+
+/* ============================================================
+   6. CONTENEDOR GLOBAL
+   ============================================================ */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* ============================================================
+   7. UTILIDADES GLOBALES
+   ============================================================ */
+
+/* Texto con degradado naranja */
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-3) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Tarjeta glassmorphism */
+.glass-card {
+  background: var(--glass-bg);
+  border: var(--glass-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Wrapper 3D */
+.perspective-wrapper {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+/* ============================================================
+   8. ANIMACIONES GLOBALES
+   ============================================================ */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1);   opacity: 1; }
+  50%       { transform: scale(1.5); opacity: 0.6; }
+}
+
+@keyframes shimmer {
+  from { background-position: 0%   center; }
+  to   { background-position: 200% center; }
+}
+
+@keyframes cartPulse {
+  0%, 100% { box-shadow: 0 0 12px var(--accent-glow); }
+  50%       { box-shadow: 0 0 24px var(--accent), 0 0 40px var(--accent-glow); }
+}
+
+@keyframes dropdownSlide {
+  from { opacity: 0; transform: translateY(-8px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+@keyframes float3D {
+  0%, 100% { transform: translateY(0)   rotateY(0deg)  rotateX(2deg); }
+  25%       { transform: translateY(-12px) rotateY(5deg)  rotateX(-1deg); }
+  50%       { transform: translateY(-20px) rotateY(0deg)  rotateX(-3deg); }
+  75%       { transform: translateY(-10px) rotateY(-5deg) rotateX(1deg); }
+}
+
+@keyframes badgeIn {
+  from { opacity: 0; transform: scale(0.8) translateX(-10px); }
+  to   { opacity: 1; transform: scale(1)   translateX(0); }
+}
+
+@keyframes successPop {
+  from { transform: scale(0) rotate(-20deg); opacity: 0; }
+  to   { transform: scale(1) rotate(0);      opacity: 1; }
+}
+
+@keyframes loginCardIn {
+  from { opacity: 0; transform: translateY(30px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+@keyframes overlayIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes gridShift {
+  from { background-position: 0 0,   0 0; }
+  to   { background-position: 40px 40px, 40px 40px; }
+}
+
+@keyframes heroZoom {
+  from { transform: translate(-50%, -50%) scale(1.04); }
+  to   { transform: translate(-50%, -50%) scale(1.1); }
+}
+
+@keyframes scrollBounce {
+  0%, 60%, 100% { transform: translateX(-50%) translateY(0); }
+  30%            { transform: translateX(-50%) translateY(8px); }
+}
+
+@keyframes emptyFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}

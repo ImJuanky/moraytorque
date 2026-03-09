@@ -1,4 +1,4 @@
-// src/app/pages/login/login.ts
+
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -12,7 +12,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login.html',
   styleUrls: ['./login.css']
 })
-export class LoginComponent {  // <-- Asegúrate que se llame LoginComponent
+export class LoginComponent {  
   credentials = {
     email: '',
     password: ''
