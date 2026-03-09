@@ -1,17 +1,103 @@
-<h1>Mis pedidos</h1>
+<div class="orders-container">
+  <!-- Cabecera -->
+  <div class="orders-header">
+    <div class="header-content">
+      <h1 class="orders-title">📦 Mis pedidos</h1>
+      <p class="orders-subtitle" *ngIf="orders.length > 0">
+        Historial de tus compras en Moray's Torque
+      </p>
+    </div>
+    <div class="header-icon">
+      <span class="orders-count">{{ orders.length }}</span>
+      <span>pedido{{ orders.length !== 1 ? 's' : '' }}</span>
+    </div>
+  </div>
 
-<div *ngIf="orders.length === 0">  <!-- Cambiado -->
-  <p>No tienes pedidos todavía.</p>
-</div>
+  <!-- Lista de pedidos -->
+  <div class="orders-list" *ngIf="orders.length > 0; else noOrders">
+    <div class="order-card" *ngFor="let order of orders">
+      <!-- Cabecera del pedido -->
+      <div class="order-header">
+        <div class="order-info">
+          <div class="order-id">
+            <span class="id-label">Pedido #</span>
+            <span class="id-value">{{ formatOrderId(order.id) }}</span>
+          </div>
+          <div class="order-date">
+            <span class="date-icon">📅</span>
+            <span>{{ order.createdAt | date:'dd/MM/yyyy' }}</span>
+            <span class="date-time">{{ order.createdAt | date:'HH:mm' }}</span>
+          </div>
+        </div>
+        <div class="order-status">
+          <span class="status-badge delivered">✅ Entregado</span>
+        </div>
+      </div>
 
-<div *ngFor="let order of orders" class="order">  <!-- Cambiado -->
-  <h3>Pedido {{ order.id }}</h3>
-  <p>Fecha: {{ order.createdAt | date:'short' }}</p>
-  <p>Total: {{ order.total | number:'1.2-2' }} €</p>
+      <!-- Cuerpo del pedido -->
+      <div class="order-body">
+        <div class="order-items">
+          <div class="order-item" *ngFor="let item of order.items">
+            <!-- Imagen del producto (si existe) -->
+            <div class="item-image" *ngIf="item.product.imageUrl">
+              <img [src]="item.product.imageUrl" [alt]="item.product.name">
+            </div>
+            
+            <!-- Información del producto -->
+            <div class="item-details">
+              <h4 class="item-name">{{ item.product.name || 'Producto' }}</h4>
+              <p class="item-meta">
+                <span class="item-quantity">x{{ item.quantity }}</span>
+                <span class="item-price">{{ item.product.price | number:'1.2-2' }} € c/u</span>
+              </p>
+            </div>
+          </div>
+        </div>
 
-  <ul>
-    <li *ngFor="let item of order.items">
-      {{ item.product.name }} x{{ item.quantity }}
-    </li>
-  </ul>
+        <!-- Resumen del pedido -->
+        <div class="order-summary">
+          <div class="summary-row">
+            <span>Subtotal:</span>
+            <span>{{ calculateSubtotal(order) | number:'1.2-2' }} €</span>
+          </div>
+          <div class="summary-row">
+            <span>Envío:</span>
+            <span class="free-shipping">GRATIS</span>
+          </div>
+          <div class="summary-total">
+            <span>Total:</span>
+            <span class="total-amount">{{ order.total | number:'1.2-2' }} €</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer del pedido -->
+      <div class="order-footer">
+        <div class="shipping-info">
+          <span class="info-icon">📍</span>
+          <span class="info-text">{{ order.address }}</span>
+        </div>
+        <div class="order-actions">
+          <button class="action-btn" [routerLink]="['/orders', order.id]">
+            <span class="btn-icon">🔍</span>
+            Ver detalle
+          </button>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Estado sin pedidos -->
+  <ng-template #noOrders>
+    <div class="empty-orders">
+      <div class="empty-icon">📭</div>
+      <h2 class="empty-title">No tienes pedidos</h2>
+      <p class="empty-text">Parece que aún no has realizado ninguna compra</p>
+      <a routerLink="/catalog" class="empty-btn">
+        <span class="btn-icon">←</span>
+        Ir al catálogo
+      </a>
+    </div>
+  </ng-template>
 </div>

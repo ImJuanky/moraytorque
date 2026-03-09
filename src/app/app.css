@@ -1,197 +1,293 @@
 /* src/app/app.css */
-
-/* Estilos de navegación (tus estilos originales mejorados) */
-.nav {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  padding: 16px 32px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(0, 0, 0, 0.8);
+.navbar {
+  background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(10px);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
-  z-index: 100;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-.nav a {
-  cursor: pointer;
-  position: relative;
-  text-decoration: none;
-  color: #fff;
-  font-weight: 700;
-  font-size: 15px;
-  padding: 8px 16px;
-  border-radius: 40px;
-  transition: all 0.2s ease;
+.nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.nav a:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: translateY(-2px);
-}
-
-.nav a.active {
-  background: linear-gradient(135deg, #4facfe, #00f2fe);
-  color: #111;
-  font-weight: 700;
-  box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
-}
-
-/* Sección de autenticación */
-.auth-section {
-  margin-left: auto;
+/* Logo */
+.logo {
   display: flex;
   align-items: center;
   gap: 12px;
+  text-decoration: none;
+  transition: transform 0.3s ease;
 }
 
-.user-info {
-  color: #4facfe;
+.logo:hover {
+  transform: scale(1.05);
+}
+
+.logo-icon {
+  font-size: 2rem;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
+}
+
+/* Menú */
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #4a5568;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-links a:hover {
+  color: #667eea;
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.nav-links a.active {
+  color: #667eea;
+  background: rgba(102, 126, 234, 0.15);
+}
+
+.nav-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 3px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 3px;
+}
+
+/* Acciones */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Carrito */
+.cart-icon {
+  position: relative;
+  font-size: 1.5rem;
+  text-decoration: none;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  color: #4a5568;
+}
+
+.cart-icon:hover {
+  background: rgba(102, 126, 234, 0.1);
+  transform: scale(1.1);
+}
+
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
+  color: white;
+  font-size: 0.75rem;
   font-weight: 700;
-  padding: 8px 16px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 40px;
-  font-size: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+  box-shadow: 0 2px 5px rgba(255, 71, 87, 0.3);
+  animation: pulse 2s infinite;
 }
 
-.logout {
-  background: #dc3545 !important;
-  color: white !important;
-  border: none !important;
+/* Menú usuario */
+.user-menu {
+  position: relative;
 }
 
-.logout:hover {
-  background: #c82333 !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3) !important;
+.user-menu-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: 2px solid rgba(102, 126, 234, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  color: #4a5568;
 }
 
+.user-menu-btn:hover {
+  border-color: #667eea;
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.user-avatar {
+  font-size: 1.2rem;
+}
+
+.user-name {
+  font-weight: 600;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropdown-arrow {
+  font-size: 0.8rem;
+  color: #667eea;
+  transition: transform 0.3s ease;
+}
+
+.user-menu-btn:hover .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.user-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  min-width: 200px;
+  overflow: hidden;
+  animation: slideDown 0.3s ease;
+  z-index: 1000;
+}
+
+.user-dropdown a,
+.user-dropdown button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: #4a5568;
+  width: 100%;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  text-align: left;
+}
+
+.user-dropdown a:hover,
+.user-dropdown button:hover {
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+  padding-left: 20px;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: #e2e8f0;
+  margin: 8px 0;
+}
+
+.logout-btn {
+  color: #ff4757 !important;
+}
+
+.logout-btn:hover {
+  background: rgba(255, 71, 87, 0.1) !important;
+}
+
+/* Botón login */
 .login-btn {
-  background: linear-gradient(135deg, #4facfe, #00f2fe) !important;
-  color: #111 !important;
-  border: none !important;
-  font-weight: 700 !important;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white !important;
+  padding: 0.6rem 1.5rem !important;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
 }
 
 .login-btn:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
 }
 
-/* Contenedor principal */
-.container {
-  padding: 24px 32px;
-  max-width: 1400px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
+.btn-icon {
+  transition: transform 0.3s ease;
+}
+
+.login-btn:hover .btn-icon {
+  transform: translateX(5px);
+}
+
+/* Menú móvil */
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.hamburger-line {
+  width: 25px;
+  height: 3px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+/* Contenido principal */
+.main-content {
   min-height: calc(100vh - 80px);
+  padding: 2rem;
+  background: #f7fafc;
 }
 
-/* FONDO ESTÁTICO PARA TODAS LAS PÁGINAS (EXCEPTO HOME) */
-
-/* Fondo base para toda la aplicación */
-:host {
-  display: block;
-  min-height: 100vh;
-  position: relative;
-}
-
-/* Imagen de fondo fija */
-:host::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url('/images/fondo.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  z-index: -2;
-  filter: brightness(0.7);
-}
-
-/* Capa oscura para mejorar legibilidad */
-:host::after {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: -1;
-}
-
-/* Hacer más claro el fondo en el home (se mantiene el gradiente original) */
-:host-context(.route-home)::after {
-  background: rgba(0, 0, 0, 0.3);
-}
-
-/* Estilos para todos los contenedores de páginas */
-:host ::ng-deep .configurator-container,
-:host ::ng-deep .catalog-container,
-:host ::ng-deep .cart-container,
-:host ::ng-deep .checkout-container,
-:host ::ng-deep .login-container {
-  position: relative;
-  z-index: 1;
-  animation: fadeIn 0.5s ease;
-}
-
-/* Mejorar legibilidad de tarjetas y paneles */
-:host ::ng-deep .panel,
-:host ::ng-deep .card,
-:host ::ng-deep .preview,
-:host ::ng-deep .summary-card,
-:host ::ng-deep .form-card,
-:host ::ng-deep .cart-item,
-:host ::ng-deep .cart-summary,
-:host ::ng-deep .success-card,
-:host ::ng-deep .login-card {
-  background: rgba(255, 255, 255, 0.95) !important;
-  backdrop-filter: blur(10px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
-}
-
-/* Ajuste específico para el preview del configurador */
-:host ::ng-deep .preview {
-  background: rgba(248, 249, 250, 0.95) !important;
-}
-
-/* Botones y filtros */
-:host ::ng-deep .filters button {
-  background: rgba(255, 255, 255, 0.95) !important;
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-}
-
-:host ::ng-deep .filters button.active {
-  background: linear-gradient(135deg, #4facfe, #00f2fe) !important;
-  border: none !important;
-}
-
-/* Títulos con gradiente (mantienen su estilo) */
-:host ::ng-deep h1:not(.hero-title) {
-  background: linear-gradient(135deg, #ffffff, #e0e0e0);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-/* Animación de entrada */
-@keyframes fadeIn {
+/* Animaciones */
+@keyframes slideDown {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(-10px);
   }
   to {
     opacity: 1;
@@ -199,47 +295,119 @@
   }
 }
 
-/* Responsive para móviles */
-@media (max-width: 768px) {
-  .nav {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 12px 16px;
-    gap: 12px;
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.4);
   }
-  
-  .nav a {
-    text-align: center;
-    padding: 10px;
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 71, 87, 0);
   }
-  
-  .auth-section {
-    margin-left: 0;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  
-  .container {
-    padding: 16px;
-  }
-  
-  :host ::ng-deep .panel,
-  :host ::ng-deep .card,
-  :host ::ng-deep .preview,
-  :host ::ng-deep .summary-card,
-  :host ::ng-deep .form-card {
-    backdrop-filter: blur(8px) !important;
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 71, 87, 0);
   }
 }
 
-/* Ajustes para tablets */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .container {
-    padding: 20px 24px;
+/* Responsive */
+@media (max-width: 968px) {
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    background: white;
+    flex-direction: column;
+    padding: 2rem;
+    gap: 2rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-150%);
+    transition: transform 0.3s ease;
+    z-index: 999;
+  }
+
+  .nav-menu.active {
+    transform: translateY(0);
+  }
+
+  .nav-links {
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 1rem;
+  }
+
+  .nav-links a.active::after {
+    bottom: 0;
+  }
+
+  .nav-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .cart-icon {
+    font-size: 1.8rem;
+  }
+
+  .login-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .user-menu {
+    width: 100%;
+  }
+
+  .user-menu-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .user-dropdown {
+    position: static;
+    margin-top: 10px;
+    box-shadow: none;
+    border: 1px solid #e2e8f0;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-container {
+    padding: 1rem;
+  }
+
+  .logo-text {
+    font-size: 1.2rem;
+  }
+
+  .logo-icon {
+    font-size: 1.5rem;
+  }
+
+  .main-content {
+    padding: 1rem;
   }
   
-  .nav {
-    padding: 12px 24px;
-    gap: 16px;
+}
+/* ===== NUEVO: Estilos para el logo personalizado ===== */
+.logo-image {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+/* Responsive para el logo */
+@media (max-width: 480px) {
+  .logo-image {
+    width: 32px;
+    height: 32px;
   }
 }

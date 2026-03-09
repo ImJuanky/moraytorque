@@ -1,23 +1,78 @@
 <!-- src/app/app.html -->
-<nav class="nav">
-  <a routerLink="/" routerLinkActive="active">Home</a>
-  <a routerLink="/catalog" routerLinkActive="active">Catálogo</a>
-  <a routerLink="/configurator" routerLinkActive="active">Configurador</a>
-  <a routerLink="/cart" routerLinkActive="active">
-    Carrito ({{ cartService.getCount() }})
-  </a>
-  <a routerLink="/orders" routerLinkActive="active">Mis pedidos</a>
-  
-  <div class="auth-section">
-    <ng-container *ngIf="authService.currentUser$ | async as user; else notLoggedIn">
-      <span class="user-info">Hola, {{ user.email }}</span>
-      <a href="#" (click)="logout($event)" class="logout">Cerrar sesión</a>
-    </ng-container>
-    <ng-template #notLoggedIn>
-      <a routerLink="/login" routerLinkActive="active" class="login-btn">Iniciar sesión</a>
-    </ng-template>
+<nav class="navbar">
+  <div class="nav-container">
+    <!-- Logo con imagen personalizada -->
+    <div class="nav-logo">
+      <a routerLink="/" class="logo">
+        <img 
+          src="/images/Logo.png" 
+          alt="Moray's Torque Logo" 
+          class="logo-image"
+          loading="eager"
+        >
+        <span class="logo-text">Moray's Torque</span>
+      </a>
+    </div>
+
+    <!-- Menú principal -->
+    <div class="nav-menu" [class.active]="mobileMenuOpen">
+      <div class="nav-links">
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a>
+        <a routerLink="/catalog" routerLinkActive="active">Catálogo</a>
+        <a routerLink="/configurator" routerLinkActive="active">Configurador</a>
+        <a routerLink="/orders" routerLinkActive="active">Mis pedidos</a>
+      </div>
+
+      <!-- Acciones -->
+      <div class="nav-actions">
+        <!-- Carrito -->
+        <a routerLink="/cart" class="cart-icon" routerLinkActive="active">
+          <span class="cart-count" *ngIf="cartService.getCount() > 0">
+            {{ cartService.getCount() }}
+          </span>
+          🛒
+        </a>
+
+        <!-- Autenticación -->
+        <div class="auth-section">
+          <ng-container *ngIf="authService.currentUser$ | async as user; else notLoggedIn">
+            <div class="user-menu">
+              <button class="user-menu-btn" (click)="toggleUserMenu()">
+                <span class="user-avatar">👤</span>
+                <span class="user-name">{{ getUserDisplayName(user) }}</span>
+                <span class="dropdown-arrow">▼</span>
+              </button>
+              <div class="user-dropdown" *ngIf="userMenuOpen">
+                <a routerLink="/orders">📦 Mis pedidos</a>
+                <a routerLink="/profile">⚙️ Perfil</a>
+                <div class="dropdown-divider"></div>
+                <button (click)="logout($event)" class="logout-btn">
+                  🚪 Cerrar sesión
+                </button>
+              </div>
+            </div>
+          </ng-container>
+          
+          <ng-template #notLoggedIn>
+            <a routerLink="/login" class="login-btn">
+              <span>Iniciar sesión</span>
+              <span class="btn-icon">→</span>
+            </a>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botón menú móvil -->
+    <button class="mobile-menu-btn" (click)="toggleMobileMenu()">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
   </div>
 </nav>
 
-<!-- El hero DEBE IR FUERA del container -->
-<router-outlet></router-outlet>
+<!-- Contenido principal -->
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>

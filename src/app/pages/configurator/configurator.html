@@ -1,10 +1,23 @@
-<!-- configurator.html con nueva sintaxis @if -->
+<!-- configurator.html con mejoras visuales -->
 <div class="configurator-container">
-  <h1 class="configurator-title">Configurador MT-07</h1>
+  <!-- Header con badge de configuración activa -->
+  <div class="header-with-badge">
+    <h1 class="configurator-title">Configurador MT-07</h1>
+    <span class="config-badge" *ngIf="hasActiveOptions()">
+      <span class="pulse-dot"></span>
+      Configuración activa
+    </span>
+  </div>
 
   <div class="layout">
+    <!-- Panel de vista previa mejorado -->
     <section class="preview">
       <div class="stage">
+        <!-- Badge de color actual sobre la imagen -->
+        <div class="color-indicator" [style.background]="getColorGradient()">
+          <span class="color-name">{{ getColorName() }}</span>
+        </div>
+
         <img class="layer base" [src]="imageUrl" alt="Yamaha MT-07" />
         
         @if (state.sportExhaust) {
@@ -12,6 +25,7 @@
             class="layer overlay exhaust"
             src="/images/mt07/overlays/mt07-escape.png"
             alt="Escape sport"
+            [style.filter]="'drop-shadow(0 10px 15px rgba(79, 172, 254, 0.3))'"
           />
         }
         
@@ -24,44 +38,152 @@
         }
       </div>
 
+      <!-- Badges mejorados con iconos -->
       <div class="badges">
         @if (state.stickers) {
-          <span class="badge">Stickers</span>
+          <span class="badge sticker-badge">
+            <span class="badge-icon">✨</span>
+            Stickers
+          </span>
         }
         @if (state.sportExhaust) {
-          <span class="badge">Escape sport</span>
+          <span class="badge exhaust-badge">
+            <span class="badge-icon">⚡</span>
+            Escape sport
+          </span>
         }
+      </div>
+
+      <!-- Mini resumen de configuración (solo visible si hay opciones activas) -->
+      <div class="config-summary" *ngIf="hasActiveOptions()">
+        <div class="summary-item" *ngIf="state.stickers">
+          <span>✨ Stickers</span>
+          <span>+24.99€</span>
+        </div>
+        <div class="summary-item" *ngIf="state.sportExhaust">
+          <span>⚡ Escape sport</span>
+          <span>+299.99€</span>
+        </div>
       </div>
     </section>
 
+    <!-- Panel de controles mejorado -->
     <section class="panel">
-      <h2>Color</h2>
-      <div class="row">
-        <button (click)="setColor('black')" [class.active]="state.color === 'black'">Negro</button>
-        <button (click)="setColor('blue')" [class.active]="state.color === 'blue'">Azul</button>
-        <button (click)="setColor('red')" [class.active]="state.color === 'red'">Rojo</button>
+      <!-- Selector de color con diseño de tarjetas -->
+      <div class="section-header">
+        <span class="section-icon">🎨</span>
+        <h2>Color</h2>
       </div>
-
-      <h2>Accesorios</h2>
-      <div class="row">
-        <button (click)="toggleStickers()" [class.active]="state.stickers">
-          Stickers: {{ state.stickers ? 'ON' : 'OFF' }}
+      
+      <div class="color-grid">
+        <button 
+          class="color-card" 
+          [class.active]="state.color === 'black'"
+          (click)="setColor('black')">
+          <div class="color-preview black"></div>
+          <span class="color-label">Negro</span>
+          <span class="check-icon" *ngIf="state.color === 'black'">✓</span>
         </button>
 
-        <button (click)="toggleSportExhaust()" [class.active]="state.sportExhaust">
-          Escape sport: {{ state.sportExhaust ? 'ON' : 'OFF' }}
+        <button 
+          class="color-card" 
+          [class.active]="state.color === 'blue'"
+          (click)="setColor('blue')">
+          <div class="color-preview blue"></div>
+          <span class="color-label">Azul</span>
+          <span class="check-icon" *ngIf="state.color === 'blue'">✓</span>
+        </button>
+
+        <button 
+          class="color-card" 
+          [class.active]="state.color === 'red'"
+          (click)="setColor('red')">
+          <div class="color-preview red"></div>
+          <span class="color-label">Rojo</span>
+          <span class="check-icon" *ngIf="state.color === 'red'">✓</span>
         </button>
       </div>
 
-      <button class="reset" (click)="reset()">Resetear configuración</button>
-      
-      <p class="price">
-        Precio total: <strong>{{ configPrice | number:'1.2-2' }} €</strong>
-      </p>
-      
-      <button class="add-cart" (click)="addConfigToCart()">
-        🛒 Añadir configuración al carrito
-      </button>
+      <!-- Accesorios con diseño mejorado -->
+      <div class="section-header">
+        <span class="section-icon">⚙️</span>
+        <h2>Accesorios</h2>
+      </div>
+
+      <div class="accesorios-list">
+        <!-- Stickers -->
+        <div class="accesorio-item" [class.active]="state.stickers">
+          <div class="item-info">
+            <div class="item-icon">✨</div>
+            <div class="item-details">
+              <span class="item-name">Stickers decorativos</span>
+              <span class="item-price">+24.99€</span>
+            </div>
+          </div>
+          <button 
+            class="toggle-btn" 
+            [class.active]="state.stickers"
+            (click)="toggleStickers()">
+            <span class="toggle-slider"></span>
+            <span class="toggle-label">{{ state.stickers ? 'ON' : 'OFF' }}</span>
+          </button>
+        </div>
+
+        <!-- Escape sport -->
+        <div class="accesorio-item" [class.active]="state.sportExhaust">
+          <div class="item-info">
+            <div class="item-icon">⚡</div>
+            <div class="item-details">
+              <span class="item-name">Escape sport</span>
+              <span class="item-price">+299.99€</span>
+            </div>
+          </div>
+          <button 
+            class="toggle-btn" 
+            [class.active]="state.sportExhaust"
+            (click)="toggleSportExhaust()">
+            <span class="toggle-slider"></span>
+            <span class="toggle-label">{{ state.sportExhaust ? 'ON' : 'OFF' }}</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Resumen y acciones -->
+      <div class="summary-card">
+        <div class="summary-row">
+          <span>Precio base</span>
+          <span>0.00€</span>
+        </div>
+        <div class="summary-row" *ngIf="state.stickers">
+          <span>✨ Stickers</span>
+          <span>+24.99€</span>
+        </div>
+        <div class="summary-row" *ngIf="state.sportExhaust">
+          <span>⚡ Escape sport</span>
+          <span>+299.99€</span>
+        </div>
+        <div class="summary-total">
+          <span>Total</span>
+          <span class="total-price">{{ configPrice | number:'1.2-2' }}€</span>
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <button class="reset-btn" (click)="reset()">
+          <span class="btn-icon">↺</span>
+          Resetear
+        </button>
+        <button class="add-cart-btn" (click)="addConfigToCart()">
+          <span class="btn-icon">🛒</span>
+          Añadir al carrito
+        </button>
+      </div>
+
+      <!-- Badge de configuración guardada -->
+      <div class="auto-save-badge" *ngIf="isConfigSaved()">
+        <span class="save-icon">✓</span>
+        Configuración guardada
+      </div>
     </section>
   </div>
 </div>

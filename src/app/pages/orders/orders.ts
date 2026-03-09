@@ -1,19 +1,18 @@
-// src/app/pages/orders/orders.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { OrdersService } from '../../services/orders.service';
 import { Order } from '../../models/order.model';
 
 @Component({
   selector: 'app-orders',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './orders.html',
   styleUrl: './orders.css'
 })
 export class Orders implements OnInit {
-  // AÑADE UN COMENTARIO NUEVO AQUÍ para forzar cambio
-  orders: Order[] = [];  // <-- FORZANDO RECOMPILACIÓN
+  orders: Order[] = [];
 
   constructor(private ordersService: OrdersService) {}
 
@@ -23,10 +22,23 @@ export class Orders implements OnInit {
 
   loadOrders(): void {
     this.orders = this.ordersService.getAll();
-    console.log('Pedidos cargados:', this.orders); // <-- AÑADE ESTO también
   }
 
-  refresh(): void {
-    this.loadOrders();
+  formatOrderId(id: string): string {
+    if (!id) return '';
+    // Muestra solo los primeros 8 caracteres del UUID
+    return id.substring(0, 8).toUpperCase();
+  }
+
+  calculateSubtotal(order: Order): number {
+    return order.items.reduce((sum, item) => {
+      return sum + (item.product?.price || 0) * item.quantity;
+    }, 0);
+  }
+
+  repeatOrder(order: Order): void {
+    // Aquí iría la lógica para repetir el pedido
+    console.log('Repetir pedido:', order);
+    alert('Función de repetir pedido (demo)');
   }
 }

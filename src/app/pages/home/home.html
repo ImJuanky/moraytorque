@@ -1,5 +1,5 @@
 <section class="hero">
-  <!-- Overlay de video con efecto parallax suave -->
+
   <div class="video-wrapper">
     <video
       class="video-bg"
@@ -27,13 +27,13 @@
     </p>
     
     <div class="hero-cta">
-      <!-- BOTÓN PRINCIPAL - CONFIGURADOR -->
+    
       <a class="btn btn-primary" routerLink="/configurator">
         <span class="btn-text">Configurar mi MT-07</span>
         <span class="btn-icon">→</span>
       </a>
       
-      <!-- BOTÓN SECUNDARIO - CATÁLOGO -->
+     
       <a class="btn btn-outline" routerLink="/catalog">
         <span class="btn-text">Ver catálogo</span>
       </a>
@@ -55,7 +55,7 @@
     </div>
   </div>
 
-  <!-- Scroll indicator con evento click -->
+
   <div class="scroll-indicator" (click)="scrollToAbout()">
     <span class="scroll-text">Descubre más</span>
     <div class="scroll-arrow">↓</div>
@@ -65,59 +65,54 @@
 <section class="about">
   <div class="about-container">
     <div class="about-header">
-      <span class="section-badge">Sobre el proyecto</span>
-      <h2 class="section-title">Mi TFG en Desarrollo</h2>
+      <span class="section-badge">Quiénes Somos</span>
+      <h2 class="section-title">Especialistas en Yamaha MT-07</h2>
       <div class="title-decoration"></div>
     </div>
 
     <div class="about-grid">
-      <!-- Tarjeta Sobre mí -->
-      <div class="about-card card-personal">
-        <div class="card-icon">👨‍💻</div>
-        <h3>Sobre mí</h3>
+      <!-- Tarjeta Nuestra Historia -->
+      <div class="about-card">
+        <div class="card-icon">🏍️</div>
+        <h3>Nuestra Historia</h3>
         <p>
-          Estudiante de 2º DAM con pasión por las motos y el desarrollo web. 
-          Este proyecto combina mis dos grandes intereses.
+          Nacimos en 2024 como un pequeño taller especializado en Yamaha. 
+          Hoy somos referentes en personalización de MT-07, con clientes en toda Europa.
         </p>
         <div class="card-tags">
-          <span class="tag">Angular</span>
-          <span class="tag">TypeScript</span>
-          <span class="tag">3D</span>
+          <span class="tag">10+ años</span>
+          <span class="tag">500+ clientes</span>
+          <span class="tag">3 países</span>
         </div>
       </div>
 
-      <!-- Tarjeta Sobre el proyecto -->
-      <div class="about-card card-project">
-        <div class="card-icon">🎯</div>
-        <h3>El Proyecto</h3>
+      <!-- Tarjeta Nuestra Filosofía -->
+      <div class="about-card">
+        <div class="card-icon">⚙️</div>
+        <h3>Nuestra Filosofía</h3>
         <p>
-          Moray Motors va más allá de una tienda tradicional: 
-          configura tu MT-07 visualmente con preview 3D en tiempo real.
+          Cada moto es única, y cada cliente también. Por eso creamos un configurador 
+          que te permite visualizar tu MT-07 exactamente como la imaginas.
         </p>
-        <ul class="project-features">
-          <li>✓ Configurador interactivo</li>
-          <li>✓ Vista previa 3D</li>
-          <li>✓ Catálogo especializado</li>
-        </ul>
+        <div class="card-tags">
+          <span class="tag">Calidad</span>
+          <span class="tag">Personalización</span>
+          <span class="tag">Garantía</span>
+        </div>
       </div>
 
-      <!-- Tarjeta Tecnologías -->
-      <div class="about-card card-tech">
-        <div class="card-icon">⚡</div>
-        <h3>Tecnologías</h3>
-        <div class="tech-stack">
-          <div class="tech-item">
-            <span class="tech-name">Angular 18</span>
-            <div class="tech-bar" style="width: 90%"></div>
-          </div>
-          <div class="tech-item">
-            <span class="tech-name">TypeScript</span>
-            <div class="tech-bar" style="width: 85%"></div>
-          </div>
-          <div class="tech-item">
-            <span class="tech-name">Three.js</span>
-            <div class="tech-bar" style="width: 75%"></div>
-          </div>
+      <!-- Tarjeta Nuestro Equipo -->
+      <div class="about-card">
+        <div class="card-icon">👥</div>
+        <h3>Nuestro Equipo</h3>
+        <p>
+          Mecánicos, desarrolladores y diseñadores trabajando juntos para ofrecerte 
+          la mejor experiencia de personalización.
+        </p>
+        <div class="card-tags">
+          <span class="tag">Profesionales</span>
+          <span class="tag">Especialistas</span>
+          <span class="tag">Dedicación</span>
         </div>
       </div>
     </div>

@@ -90,7 +90,35 @@ addConfigToCart() {
   alert('Configuración añadida al carrito ✅');
 }
 
+// Añade estos métodos a tu configurator.ts
 
+hasActiveOptions(): boolean {
+  return this.state.stickers || this.state.sportExhaust;
+}
+
+getColorName(): string {
+  switch(this.state.color) {
+    case 'black': return 'Negro';
+    case 'blue': return 'Azul';
+    case 'red': return 'Rojo';
+    default: return 'Negro';
+  }
+}
+
+getColorGradient(): string {
+  switch(this.state.color) {
+    case 'black': return 'linear-gradient(135deg, #1a1a1a, #4a5568)';
+    case 'blue': return 'linear-gradient(135deg, #4facfe, #00f2fe)';
+    case 'red': return 'linear-gradient(135deg, #ff6b6b, #ff4757)';
+    default: return 'linear-gradient(135deg, #1a1a1a, #4a5568)';
+  }
+}
+
+isConfigSaved(): boolean {
+  // Compara con configuración por defecto
+  const defaultConfig = { color: 'black', stickers: false, sportExhaust: false };
+  return JSON.stringify(this.state) !== JSON.stringify(defaultConfig);
+}
 
 constructor(private cartService: CartService) {}
 

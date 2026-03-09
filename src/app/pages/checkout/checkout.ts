@@ -1,4 +1,3 @@
-// src/app/pages/checkout/checkout.ts (está bien, no necesita cambios)
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -18,6 +17,8 @@ export class Checkout {
   name = '';
   address = '';
   success = false;
+  nameError = false;
+  addressError = false;
 
   constructor(
     public cartService: CartService,
@@ -30,8 +31,11 @@ export class Checkout {
   }
 
   confirmOrder() {
-    if (!this.name.trim() || !this.address.trim()) {
-      alert('Completa nombre y dirección');
+    this.nameError = !this.name.trim();
+    this.addressError = !this.address.trim();
+
+    if (this.nameError || this.addressError) {
+      alert('Por favor, completa todos los campos');
       return;
     }
 
@@ -40,8 +44,8 @@ export class Checkout {
       createdAt: new Date().toISOString(),
       name: this.name.trim(),
       address: this.address.trim(),
-      items: this.cartService.getItems(), // Ahora devuelve CartItem[]
-      total: this.cartService.getTotal()   // Este método lo añadimos arriba
+      items: this.cartService.getItems(), 
+      total: this.cartService.getTotal()   
     };
 
     this.ordersService.create(order);

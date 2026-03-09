@@ -1,20 +1,91 @@
-<!-- src/app/pages/cart/cart.html -->
-<div *ngFor="let item of cartService.getItems()">
-  <article class="card">
-    <img [src]="item.product.imageUrl" alt="{{ item.product.name }}">
-    <h3>{{ item.product.name }}</h3>
-    <p>{{ item.product.description }}</p>
-    <p>Cantidad: {{ item.quantity }}</p>  <!-- Mostrar cantidad -->
-    <p>Precio: {{ item.product.price | currency }}</p>
-    <p>Subtotal: {{ item.product.price * item.quantity | currency }}</p>
-  </article>
-</div>
+<div class="cart-container">
+  <!-- Header del carrito -->
+  <div class="cart-header">
+    <h1 class="cart-title">🛒 Tu Carrito</h1>
+    <span class="cart-count-badge" *ngIf="cartService.getCount() > 0">
+      {{ cartService.getCount() }} producto{{ cartService.getCount() > 1 ? 's' : '' }}
+    </span>
+  </div>
 
-<div *ngIf="cartService.getItems().length === 0">
-  <p>El carrito está vacío</p>
-</div>
+  <!-- Lista de productos -->
+  <div class="cart-items" *ngIf="cartService.getItems().length > 0; else emptyCart">
+    <div class="cart-item" *ngFor="let item of cartService.getItems()">
+      <!-- Imagen del producto -->
+      <div class="item-image">
+        <img [src]="getItemImage(item)" [alt]="getItemName(item)">
+      </div>
 
-<div *ngIf="cartService.getItems().length > 0">
-  <p><strong>Total: {{ cartService.getTotal() | currency }}</strong></p>
-  <button routerLink="/checkout">Proceder al pago</button>
+      <!-- Información del producto -->
+      <div class="item-details">
+        <h3 class="item-name">{{ getItemName(item) }}</h3>
+        <p class="item-description">{{ getItemDescription(item) }}</p>
+        <div class="item-features" *ngIf="isConfiguration(item)">
+          <!-- CORREGIDO: item.product.category en lugar de item.product?.category -->
+          <span class="feature-badge" *ngIf="item.product.category === 'config'">
+            ⚙️ Configuración personalizada
+          </span>
+          <span class="feature-badge" *ngIf="getItemColor(item)">
+            🎨 Color: {{ getItemColor(item) }}
+          </span>
+        </div>
+        <!-- CORREGIDO: item.product.category en lugar de item.product?.category -->
+        <span class="item-category">{{ item.product.category || 'configuración' }}</span>
+      </div>
+
+      <!-- Precio unitario -->
+      <div class="item-price">
+        <span class="price-label">Precio:</span>
+        <span class="price-value">{{ getItemPrice(item) | number:'1.2-2' }} €</span>
+      </div>
+
+      <!-- Cantidad -->
+      <div class="item-quantity">
+        <button class="qty-btn minus" (click)="decreaseQuantity(item)">−</button>
+        <span class="qty-value">{{ item.quantity }}</span>
+        <button class="qty-btn plus" (click)="increaseQuantity(item)">+</button>
+      </div>
+
+      <!-- Subtotal -->
+      <div class="item-subtotal">
+        <span class="subtotal-label">Subtotal:</span>
+        <span class="subtotal-value">{{ getItemSubtotal(item) | number:'1.2-2' }} €</span>
+      </div>
+
+      <!-- Botón eliminar -->
+      <button class="remove-btn" (click)="removeItem(item)" title="Eliminar">
+        🗑️
+      </button>
+    </div>
+
+    <!-- Resumen del carrito -->
+    <div class="cart-summary" *ngIf="cartService.getItems().length > 0">
+      <div class="summary-row">
+        <span>Subtotal:</span>
+        <span>{{ cartService.getTotal() | number:'1.2-2' }} €</span>
+      </div>
+      <div class="summary-row">
+        <span>Envío:</span>
+        <span class="free-shipping">GRATIS</span>
+      </div>
+      <div class="summary-total">
+        <span>Total:</span>
+        <span>{{ cartService.getTotal() | number:'1.2-2' }} €</span>
+      </div>
+      
+      <div class="summary-actions">
+        <button class="clear-btn" (click)="clearCart()">Vaciar carrito</button>
+        <button class="checkout-btn" (click)="goToCheckout()">Proceder al pago</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Carrito vacío -->
+  <ng-template #emptyCart>
+    <div class="empty-cart">
+      <div class="empty-icon">🛒</div>
+      <h2 class="empty-title">Tu carrito está vacío</h2>
+      <p class="empty-text">¿Aún no has encontrado lo que buscas?</p>
+      <a routerLink="/catalog" class="empty-btn">Ver catálogo</a>
+    </div>
+  </ng-template>
 </div>
