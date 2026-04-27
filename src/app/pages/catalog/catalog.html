@@ -1,13 +1,14 @@
+<!-- catalog.html -->
 <div class="catalog-container">
-  <!-- Hero Section -->
+
+  <!-- ===== HERO ===== -->
   <div class="catalog-hero">
     <div class="hero-content">
+      <div class="hero-eyebrow">Yamaha MT-07</div>
       <h1 class="hero-title">
-        <span class="title-gradient">Personaliza</span> tu moto
+        <span class="title-gradient">Personaliza</span><br>tu moto
       </h1>
       <p class="hero-subtitle">Descubre nuestra colección de accesorios exclusivos para Yamaha MT-07</p>
-      
-      <!-- Stats -->
       <div class="hero-stats">
         <div class="stat-item">
           <span class="stat-number">{{ products.length }}</span>
@@ -23,69 +24,54 @@
         </div>
       </div>
     </div>
-    
-    <!-- Imagen decorativa con logo personalizado -->
     <div class="hero-image">
       <div class="floating-card">
-        <img 
-          src="/images/Logo.png" 
-          alt="Moray's Torque Logo" 
-          class="floating-logo"
-        >
+        <img src="/images/Logo.png" alt="Moray's Torque Logo" class="floating-logo">
       </div>
     </div>
   </div>
 
-  <!-- Barra de filtros moderna -->
+  <!-- ===== CARRUSEL 3D ===== -->
+  <div class="carousel-section" *ngIf="products.length > 0">
+    <div class="section-label">
+      <span class="label-line"></span>
+      <span class="label-text">✦ Productos destacados ✦</span>
+      <span class="label-line"></span>
+    </div>
+    <app-carousel3d [products]="products"></app-carousel3d>
+  </div>
+
+  <!-- ===== FILTROS ===== -->
   <div class="filters-section">
     <div class="filters-header">
       <div class="filters-title">
         <span class="title-icon">🎯</span>
         <h2>Explora por categorías</h2>
       </div>
-      
-      <!-- Resultados activos -->
       <div class="active-filters" *ngIf="selectedCategory !== 'all'">
-        <span class="filter-chip">
-          {{ selectedCategory }}
+        <span class="filter-chip active">
+          {{ getCategoryLabel(selectedCategory) }}
           <button class="chip-remove" (click)="setCategory('all')">✕</button>
         </span>
       </div>
     </div>
-
-    <!-- Filtros tipo chips -->
     <div class="filters-grid">
-      <button 
-        class="filter-chip" 
-        [class.active]="selectedCategory === 'all'"
-        (click)="setCategory('all')">
+      <button class="filter-chip" [class.active]="selectedCategory === 'all'" (click)="setCategory('all')">
         <span class="chip-icon">🌟</span>
         <span class="chip-text">Todos</span>
         <span class="chip-count">{{ products.length }}</span>
       </button>
-      
-      <button 
-        class="filter-chip" 
-        [class.active]="selectedCategory === 'manillar'"
-        (click)="setCategory('manillar')">
-        <span class="chip-icon">🏍️</span>
-        <span class="chip-text">Manillar</span>
+      <button class="filter-chip" [class.active]="selectedCategory === 'manillar'" (click)="setCategory('manillar')">
+        <span class="chip-icon">✊</span>
+        <span class="chip-text">Puños</span>
         <span class="chip-count">{{ getCategoryCount('manillar') }}</span>
       </button>
-      
-      <button 
-        class="filter-chip" 
-        [class.active]="selectedCategory === 'escape'"
-        (click)="setCategory('escape')">
+      <button class="filter-chip" [class.active]="selectedCategory === 'escape'" (click)="setCategory('escape')">
         <span class="chip-icon">⚡</span>
         <span class="chip-text">Escape</span>
         <span class="chip-count">{{ getCategoryCount('escape') }}</span>
       </button>
-      
-      <button 
-        class="filter-chip" 
-        [class.active]="selectedCategory === 'sticker'"
-        (click)="setCategory('sticker')">
+      <button class="filter-chip" [class.active]="selectedCategory === 'sticker'" (click)="setCategory('sticker')">
         <span class="chip-icon">✨</span>
         <span class="chip-text">Stickers</span>
         <span class="chip-count">{{ getCategoryCount('sticker') }}</span>
@@ -93,67 +79,73 @@
     </div>
   </div>
 
-  <!-- Resultados encontrados -->
+  <!-- ===== RESULTADOS ===== -->
   <div class="results-bar">
     <p class="results-text">
       Mostrando <span class="highlight">{{ filtered.length }}</span> productos
-      <span *ngIf="selectedCategory !== 'all'">en <span class="highlight">{{ selectedCategory }}</span></span>
+      <span *ngIf="selectedCategory !== 'all'">en <span class="highlight">{{ getCategoryLabel(selectedCategory) }}</span></span>
     </p>
     <div class="view-options">
-      <button class="view-btn active">📱</button>
-      <button class="view-btn">📋</button>
+      <button class="view-btn" [class.active]="currentTheme === 'light'" (click)="setTheme('light')" title="Modo claro">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </button>
+      <button class="view-btn" [class.active]="currentTheme === 'dark'" (click)="setTheme('dark')" title="Modo oscuro">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
     </div>
   </div>
 
-  <!-- Grid de productos -->
+  <!-- ===== GRID PRODUCTOS ===== -->
   <div class="products-grid" *ngIf="filtered.length > 0; else noProducts">
     <article class="product-card" *ngFor="let p of filtered">
-      <!-- Etiqueta de categoría -->
-      <div class="product-badge" [ngClass]="'badge-' + p.category">
-        {{ p.category }}
+      <div class="product-badge" [ngClass]="'badge-' + p.category">{{ getCategoryLabel(p.category) }}</div>
+      <div class="product-image" [class.has-model]="p.modelUrl">
+        <app-model-viewer *ngIf="p.modelUrl" [modelUrl]="p.modelUrl!"></app-model-viewer>
+        <ng-container *ngIf="!p.modelUrl">
+          <img [src]="p.imageUrl" [alt]="p.name">
+          <div class="image-overlay">
+            <button class="quick-view-btn" (click)="quickView(p)">
+              <span>👁️</span>
+            </button>
+          </div>
+        </ng-container>
       </div>
-      
-      <!-- Imagen con zoom -->
-      <div class="product-image">
-        <img [src]="p.imageUrl" [alt]="p.name">
-        <div class="image-overlay">
-          <button class="quick-view-btn" (click)="quickView(p)">
-            <span class="btn-icon">👁️</span>
-          </button>
-        </div>
-      </div>
-      
-      <!-- Contenido -->
       <div class="product-info">
         <h3 class="product-name">{{ p.name }}</h3>
         <p class="product-desc">{{ p.description }}</p>
-        
-        <!-- Precio y acciones -->
         <div class="product-footer">
           <div class="product-price">
             <span class="price-currency">€</span>
             <span class="price-value">{{ p.price | number:'1.2-2' }}</span>
           </div>
-          
           <button class="add-btn" (click)="addToCart(p)">
-            <span class="btn-icon">🛒</span>
-            <span class="btn-text">Añadir</span>
+            <span>🛒</span>
+            <span>Añadir</span>
           </button>
         </div>
       </div>
     </article>
   </div>
 
-  <!-- Estado vacío con diseño -->
   <ng-template #noProducts>
     <div class="empty-state">
       <div class="empty-icon">🔍</div>
-      <h3 class="empty-title">¡Ups! No hay productos</h3>
-      <p class="empty-text">No encontramos productos en la categoría "{{ selectedCategory }}"</p>
-      <button class="empty-btn" (click)="setCategory('all')">
-        <span class="btn-icon">←</span>
-        Ver todos los productos
-      </button>
+      <h3 class="empty-title">No hay productos</h3>
+      <p class="empty-text">No encontramos productos en "{{ getCategoryLabel(selectedCategory) }}"</p>
+      <button class="empty-btn" (click)="setCategory('all')">← Ver todos</button>
     </div>
   </ng-template>
+
 </div>

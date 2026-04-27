@@ -1,4 +1,3 @@
-
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -12,12 +11,12 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login.html',
   styleUrls: ['./login.css']
 })
-export class LoginComponent {  
+export class LoginComponent {
   credentials = {
     email: '',
     password: ''
   };
-  
+
   loading = false;
   errorMessage = '';
 
@@ -36,13 +35,9 @@ export class LoginComponent {
     this.errorMessage = '';
 
     this.authService.login(this.credentials).subscribe({
-      next: (response) => {
-        if (response.success) {
-          this.authService.handleLoginSuccess(response);
-        } else {
-          this.errorMessage = 'Error al iniciar sesión';
-          this.loading = false;
-        }
+      next: () => {
+        // El tap del servicio ya guardó el token
+        this.authService.handleLoginSuccess();
       },
       error: (error) => {
         console.error('Login error:', error);

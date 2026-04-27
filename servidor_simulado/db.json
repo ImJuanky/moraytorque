@@ -2,11 +2,11 @@
   "products": [
     {
       "id": 1,
-      "name": "Manillar MT-07 Negro",
+      "name": "Puños MT-07 Negro",
       "category": "manillar",
       "price": 79.99,
       "imageUrl": "https://cdn.wallapop.com/images/10420/k2/xs/__/c10420p1214259418/i6186087928.jpg?pictureSize=W640",
-      "description": "Manillar compatible con Yamaha MT-07. Color negro mate."
+      "description": "Puños de agarre compatibles con Yamaha MT-07. Color negro mate."
     },
     {
       "id": 2,
@@ -14,28 +14,39 @@
       "category": "escape",
       "price": 299.99,
       "imageUrl": "https://cdn.unobike.com/content/productos/37747-y20-t36cr.jpg",
+      "modelUrl": "models/scproject.glb",
       "description": "Escape deportivo homologado."
     },
     {
       "id": 3,
-      "name": "Manillar MT-07 Rojo",
+      "name": "Puños MT-07 Rojo",
       "category": "manillar",
       "price": 79.99,
       "imageUrl": "https://www.rizoma.com/wp-content/uploads/rizoma/media/2/4/2494022371_WEB_S0MA0001R0000021XXX.jpg-1000x1000.jpg",
-      "description": "Manillar Rojo para MT."
+      "modelUrl": "models/punorojo.glb",
+      "description": "Puños de agarre rojos para MT-07."
     },
     {
       "id": 4,
-      "name": "Stickers para mt07",
+      "name": "Stickers para MT-07",
       "category": "sticker",
-      "price": 50.00,
+      "price": 50.0,
       "imageUrl": "https://cdn.quickbutik.com/images/9603t/products/625588b9c07d2.jpeg",
       "description": "Kit de stickers para la MT-07."
     }
-
   ],
   "users": [
-    { "id": 1, "email": "admin@moray.com", "password": "1234", "role": "admin" },
-    { "id": 2, "email": "user@moray.com", "password": "1234", "role": "user" }
+    {
+      "id": 1,
+      "email": "admin@moray.com",
+      "password": "1234",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "email": "user@moray.com",
+      "password": "1234",
+      "role": "user"
+    }
   ]
 }

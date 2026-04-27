@@ -1,0 +1,87 @@
+<!-- carousel3d.component.html -->
+<section
+  class="carousel-wrapper"
+  [class.entering]="isEntering"
+  (touchstart)="onTouchStart($event)"
+  (touchend)="onTouchEnd($event)">
+
+  <!-- Cabecera -->
+  <div class="carousel-header">
+    <span class="carousel-eyebrow">Destacados</span>
+    <h2 class="carousel-title">COLECCIÓN MT-07</h2>
+    <div class="carousel-line"></div>
+  </div>
+
+  <!-- Escenario -->
+  <div class="stage">
+
+    <button class="nav-btn nav-prev" (click)="prev()" aria-label="Anterior">
+      <span class="nav-arrow">&#8249;</span>
+    </button>
+
+    <div class="cards-track" [class.sliding]="isSliding">
+      <ng-container *ngFor="let p of products; let i = index">
+        <div
+          *ngIf="isVisible(i)"
+          class="carousel-card"
+          [style]="getCardStyle(i)"
+          [class.active]="i === activeIndex"
+          (click)="goTo(i)">
+
+          <div class="card-image">
+            <app-model-viewer
+              *ngIf="p.modelUrl"
+              [modelUrl]="p.modelUrl!"
+              style="position:absolute;inset:0;">
+            </app-model-viewer>
+            <ng-container *ngIf="!p.modelUrl">
+              <img [src]="p.imageUrl" [alt]="p.name">
+            </ng-container>
+            <div class="card-glow"></div>
+          </div>
+
+          <div class="card-info" [class.visible]="i === activeIndex">
+            <span class="card-category">{{ p.category }}</span>
+            <h3 class="card-name">{{ p.name }}</h3>
+            <p class="card-desc">{{ p.description }}</p>
+            <div class="card-footer">
+              <span class="card-price">
+                <span class="card-currency">€</span>{{ p.price | number:'1.2-2' }}
+              </span>
+              <button
+                class="card-add-btn"
+                [class.added]="cartFeedback === p.id"
+                (click)="addToCart(p, $event)">
+                <span *ngIf="cartFeedback !== p.id">🛒 Añadir</span>
+                <span *ngIf="cartFeedback === p.id">✓ ¡Añadido!</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </ng-container>
+    </div>
+
+    <button class="nav-btn nav-next" (click)="next()" aria-label="Siguiente">
+      <span class="nav-arrow">&#8250;</span>
+    </button>
+
+  </div>
+
+  <!-- Dots -->
+  <div class="dots">
+    <button
+      class="dot"
+      *ngFor="let p of products; let i = index"
+      [class.active]="i === activeIndex"
+      (click)="goTo(i)"
+      [attr.aria-label]="'Ir al producto ' + (i+1)">
+    </button>
+  </div>
+
+  <!-- Barra autoplay -->
+  <div class="autoplay-bar">
+    <div class="autoplay-progress" #autoplayProgress></div>
+  </div>
+
+</section>

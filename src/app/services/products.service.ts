@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ProductsService {
-  private apiUrl = 'http://localhost:3003/products';
+  private apiUrl = 'http://localhost:8080/api/products'; //conectao al backend de eclipse
 
   constructor(private http: HttpClient) {}
 
